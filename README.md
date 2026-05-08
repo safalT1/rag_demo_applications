@@ -30,7 +30,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r Balen_rag_applications/requirements.txt
 ```
 
-### 2. Configuration
+### 2. Configuration (Local Development)
 
 Copy the `.env.example` file to `.env` in the `Balen_rag_applications` directory:
 
@@ -58,12 +58,32 @@ CHUNK_MAX_WORDS=100
 # Retrieval Configuration
 TOP_K=5
 
-# File Paths
-TEXT_FILE_PATH=./data/balen_story.txt
-FAISS_INDEX_PATH=./faiss_store/index.faiss
+# File Paths (Optional - defaults to ./data and ./faiss_store if not specified)
+# TEXT_FILE_PATH=./data/balen_story.txt
+# FAISS_INDEX_PATH=./faiss_store/index.faiss
 ```
 
-### 3. Run the Application
+### 3. Streamlit Cloud Deployment
+
+When deploying to **Streamlit Cloud**, you must configure secrets:
+
+1. Go to your app on [Streamlit Cloud](https://share.streamlit.io)
+2. Click **Manage app** → **Secrets**
+3. Add all required environment variables:
+
+```
+RAG_API_KEY=your_api_key_here
+EMBEDDING_URL=https://your-embedding-service-url
+EMBEDDING_MODEL=your-embedding-model-name
+COMPLETION_URL=https://your-completion-service-url
+COMPLETION_MODEL=your-completion-model-name
+CHUNK_MAX_WORDS=100
+TOP_K=5
+```
+
+**⚠️ Important:** All URLs must start with `http://` or `https://`. Do NOT use relative paths.
+
+### 4. Run the Application
 
 ```bash
 cd Balen_rag_applications

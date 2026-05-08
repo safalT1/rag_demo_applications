@@ -15,6 +15,12 @@ def get_embedding(text):
     Returns:
         np.ndarray or None: Embedding vector, or None if request fails.
     """
+    # Validate EMBEDDING_URL
+    if not EMBEDDING_URL:
+        raise ValueError("EMBEDDING_URL is not set. Please configure it in .env or Streamlit secrets.")
+    if not EMBEDDING_URL.startswith(("http://", "https://")):
+        raise ValueError(f"Invalid EMBEDDING_URL: {EMBEDDING_URL}. Must start with http:// or https://")
+    
     headers = {
         "Authorization": f"Bearer {RAG_API_KEY}",
         "Content-Type": "application/json"
@@ -26,7 +32,11 @@ def get_embedding(text):
         "input_type": "passage"
     }
 
-    response = requests.post(EMBEDDING_URL, json=payload, headers=headers)
+    try:
+        response = requests.post(EMBEDDING_URL, json=payload, headers=headers, timeout=30)
+    except requests.exceptions.RequestException as e:
+        print(f"Embedding request failed: {e}")
+        return None
 
     if response.status_code != 200:
         print(f"Embedding error {response.status_code}: {response.text}")

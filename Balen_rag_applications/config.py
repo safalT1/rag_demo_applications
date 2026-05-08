@@ -29,3 +29,27 @@ BASE_DIR = Path(__file__).parent
 # Use absolute paths based on script location instead of relative paths
 TEXT_FILE_PATH = os.getenv("TEXT_FILE_PATH", str(BASE_DIR / "data" / "balen_story.txt"))
 FAISS_INDEX_PATH = os.getenv("FAISS_INDEX_PATH", str(BASE_DIR / "faiss_store" / "index.faiss"))
+
+
+# ─── Validation ────────────────────────────────────────────────────────────────
+def validate_environment():
+    """Validate that all required environment variables are set."""
+    required_vars = {
+        "RAG_API_KEY": RAG_API_KEY,
+        "EMBEDDING_URL": EMBEDDING_URL,
+        "EMBEDDING_MODEL": EMBEDDING_MODEL,
+        "COMPLETION_URL": COMPLETION_URL,
+        "COMPLETION_MODEL": COMPLETION_MODEL,
+    }
+    
+    missing_vars = [name for name, value in required_vars.items() if not value]
+    
+    if missing_vars:
+        raise EnvironmentError(
+            f"Missing required environment variables: {', '.join(missing_vars)}\n"
+            f"Please set these in your .env file or Streamlit Cloud secrets."
+        )
+
+
+# Validate on import
+validate_environment()
