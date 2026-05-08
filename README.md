@@ -32,7 +32,13 @@ pip install -r Balen_rag_applications/requirements.txt
 
 ### 2. Configuration
 
-Create a `.env` file in the `Balen_rag_applications` directory with the following variables:
+Copy the `.env.example` file to `.env` in the `Balen_rag_applications` directory:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` with your actual configuration:
 
 ```env
 # API Configuration
