@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 # Load all values from .env file
@@ -22,5 +23,9 @@ CHUNK_MAX_WORDS = int(os.getenv("CHUNK_MAX_WORDS", 100))
 TOP_K = int(os.getenv("TOP_K", 5))
 
 # ─── Paths ─────────────────────────────────────────────────────────────────────
-TEXT_FILE_PATH   = os.getenv("TEXT_FILE_PATH")
-FAISS_INDEX_PATH = os.getenv("FAISS_INDEX_PATH")
+# Get the directory of this config file
+BASE_DIR = Path(__file__).parent
+
+# Use absolute paths based on script location instead of relative paths
+TEXT_FILE_PATH = os.getenv("TEXT_FILE_PATH", str(BASE_DIR / "data" / "balen_story.txt"))
+FAISS_INDEX_PATH = os.getenv("FAISS_INDEX_PATH", str(BASE_DIR / "faiss_store" / "index.faiss"))

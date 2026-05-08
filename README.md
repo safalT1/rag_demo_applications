@@ -145,6 +145,10 @@ rag_pipeline_demo/
 | `TOP_K` | Number of chunks to retrieve | 5 |
 | `EMBEDDING_MODEL` | Model name for embeddings | Set in .env |
 | `COMPLETION_MODEL` | Model for text generation | Set in .env |
+| `TEXT_FILE_PATH` | Path to source document | `./data/balen_story.txt` |
+| `FAISS_INDEX_PATH` | Path to FAISS index | `./faiss_store/index.faiss` |
+
+**Note:** File paths are automatically resolved relative to the application directory. You can override them in `.env` if needed. Default paths work for both local and cloud deployments (Streamlit Cloud, Hugging Face Spaces, etc.).
 
 ## 🔄 Data Flow
 
